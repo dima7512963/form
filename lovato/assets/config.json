@@ -1,0 +1,5 @@
+{
+  "backendUrl": "http://10.49.199.234:9090/read",
+  "reportUrl": "http://127.0.0.1:9092",
+  "enableLog": false
+}
