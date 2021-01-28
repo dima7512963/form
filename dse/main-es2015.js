@@ -374,7 +374,7 @@ class MotorBoardComponent {
     }
     ngOnInit() {
         this.modelService.oilP$.subscribe((status) => this.oilP = +(+status / 1000).toFixed(2));
-        this.modelService.batV$.subscribe((status) => this.engBatV = +status / 100);
+        this.modelService.batV$.subscribe((status) => this.engBatV = +status / 10);
         this.modelService.engSpeed$.subscribe((status) => this.engSpeed = +status);
         this.modelService.coolantTemp$.subscribe((status) => {
             this.coolantTemp = +(+status / 1000).toFixed(0);

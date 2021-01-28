@@ -630,7 +630,7 @@
               return _this4.oilP = +(+status / 1000).toFixed(2);
             });
             this.modelService.batV$.subscribe(function (status) {
-              return _this4.engBatV = +status / 100;
+              return _this4.engBatV = +status / 10;
             });
             this.modelService.engSpeed$.subscribe(function (status) {
               return _this4.engSpeed = +status;
