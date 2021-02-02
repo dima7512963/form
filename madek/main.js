@@ -67,10 +67,11 @@ class HttpService {
         this.modelService = modelService;
         this.route = route;
         this.backendUrl = '';
-        this.reportUrl = '';
         this.enableLog = false;
+        this.reportUrl = '';
         this.user = '';
         this.form = '';
+        this.ObjectItemID = '';
         this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
         this.ip = '10.228.10.129';
         this.port = 2007;
@@ -85,6 +86,7 @@ class HttpService {
             try {
                 this.ip = params['ip'] || '10.228.10.129';
                 this.port = +params['port'] || 2007;
+                this.ObjectItemID = params['ObjectItemID'] || '';
             }
             catch (e) { }
         });
@@ -164,7 +166,9 @@ class HttpService {
         const reportBody = {
             'user': this.user,
             'button': action,
-            'form': this.form
+            'form': this.form,
+            'ObjectItemID': this.ObjectItemID,
+            'ip': this.ip
         };
         this.httpClient.post(this.reportUrl, reportBody).subscribe();
     }

@@ -429,6 +429,7 @@
           this.reportUrl = '';
           this.user = '';
           this.form = '';
+          this.ObjectItemID = '';
           this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
           this.ip = '10.228.208.79';
           this.port = 2006;
@@ -445,6 +446,7 @@
               _this3.ip = params['ip'] || '10.228.208.79';
               _this3.port = +params['port'] || 2006;
               _this3.type = params['type'] || '3';
+              _this3.ObjectItemID = params['ObjectItemID'] || '';
             } catch (e) {}
           });
         }
@@ -510,7 +512,9 @@
             var reportBody = {
               'user': this.user,
               'button': action,
-              'form': this.form
+              'form': this.form,
+              'ObjectItemID': this.ObjectItemID,
+              'ip': this.ip
             };
             this.httpClient.post(this.reportUrl, reportBody).subscribe();
           }
