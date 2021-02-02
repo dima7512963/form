@@ -397,6 +397,7 @@
           this.defPort = 2008;
           this.ip = '';
           this.port = 0;
+          this.ObjectItemID = '';
           this.backendUrl = 'http://127.0.0.1:9092';
           this.reportUrl = 'http://127.0.0.1:9092';
           this.httpClient.get('assets/config.json').subscribe(function (config) {
@@ -408,6 +409,7 @@
             try {
               _this2.ip = params['ip'] || _this2.defIp;
               _this2.port = +params['port'] || _this2.defPort;
+              _this2.ObjectItemID = params['ObjectItemID'] || '';
             } catch (e) {}
           });
         }
@@ -450,9 +452,7 @@
                 console.log('error', error);
               } // if (true) {
               //   const x = {
-              //     result: [
-              //       {
-              //         values: {
+              //     result: {
               //           '020300510001d5e8': '277',
               //           '0203003d000115f5': '10',
               //           '0203005e0001e5eb': '2',
@@ -473,8 +473,6 @@
               //           '0203003a0001a434': '3',
               //           '0203003b0001f5f4': '123456'
               //         }
-              //       }
-              //     ]
               //   }
               //   this.modelService.parseResponse(x);
               // }
@@ -489,7 +487,9 @@
             var reportBody = {
               'user': this.user,
               'button': action,
-              'form': this.form
+              'form': this.form,
+              'ObjectItemID': this.ObjectItemID,
+              'ip': this.ip
             };
             this.httpClient.post(this.reportUrl, reportBody).subscribe();
           }
@@ -1829,7 +1829,7 @@
         _createClass(ModelService, [{
           key: "parseResponse",
           value: function parseResponse(response) {
-            var res = response.result[0].values;
+            var res = response.result;
             this.controlPanel$.next(this.checkValue(res['0203005e0001e5eb']));
             this.engOpHours$.next(this.checkValue(res['020300510001d5e8']));
             this.engWorkTime$.next(this.checkValue(res['0203003d000115f5']));

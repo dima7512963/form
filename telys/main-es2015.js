@@ -208,6 +208,7 @@ class HttpService {
         this.defPort = 2008;
         this.ip = '';
         this.port = 0;
+        this.ObjectItemID = '';
         this.backendUrl = 'http://127.0.0.1:9092';
         this.reportUrl = 'http://127.0.0.1:9092';
         this.httpClient.get('assets/config.json').subscribe((config) => {
@@ -219,6 +220,7 @@ class HttpService {
             try {
                 this.ip = params['ip'] || this.defIp;
                 this.port = +params['port'] || this.defPort;
+                this.ObjectItemID = params['ObjectItemID'] || '';
             }
             catch (e) { }
         });
@@ -273,9 +275,7 @@ class HttpService {
             }
             // if (true) {
             //   const x = {
-            //     result: [
-            //       {
-            //         values: {
+            //     result: {
             //           '020300510001d5e8': '277',
             //           '0203003d000115f5': '10',
             //           '0203005e0001e5eb': '2',
@@ -296,8 +296,6 @@ class HttpService {
             //           '0203003a0001a434': '3',
             //           '0203003b0001f5f4': '123456'
             //         }
-            //       }
-            //     ]
             //   }
             //   this.modelService.parseResponse(x);
             // }
@@ -308,7 +306,9 @@ class HttpService {
         const reportBody = {
             'user': this.user,
             'button': action,
-            'form': this.form
+            'form': this.form,
+            'ObjectItemID': this.ObjectItemID,
+            'ip': this.ip
         };
         this.httpClient.post(this.reportUrl, reportBody).subscribe();
     }
@@ -963,7 +963,7 @@ class ModelService {
         this.speeds$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
     }
     parseResponse(response) {
-        let res = response.result[0].values;
+        let res = response.result;
         this.controlPanel$.next(this.checkValue(res['0203005e0001e5eb']));
         this.engOpHours$.next(this.checkValue(res['020300510001d5e8']));
         this.engWorkTime$.next(this.checkValue(res['0203003d000115f5']));
