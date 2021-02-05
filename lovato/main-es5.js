@@ -2544,6 +2544,13 @@
         };
       };
 
+      var _c1 = function _c1(a0, a1) {
+        return {
+          "active": a0,
+          "inactive": a1
+        };
+      };
+
       var MainBoardComponent = /*#__PURE__*/function () {
         function MainBoardComponent(httpService, modelService) {
           var _this7 = this;
@@ -2651,7 +2658,7 @@
               this.sendAction('KN!', 'MAINS', this.setButtonState.bind(this, _prep3));
             }
 
-            if (name === 'KG' && !this.isActive.KG) {
+            if (name === 'KG' && this.rActive && !this.isActive.KG) {
               var _prep4 = [{
                 key: 'KG',
                 value: true
@@ -2753,13 +2760,17 @@
                 callback();
               }
 
-              _this9.httpService.getAllData();
+              setTimeout(function () {
+                _this9.httpService.getAllData();
+              }, 2000);
             }, function (error) {
               if (_this9.httpService.enableLog) {
                 console.log('error', error);
               }
 
-              _this9.httpService.getAllData();
+              setTimeout(function () {
+                _this9.httpService.getAllData();
+              }, 2000);
             });
           }
         }]);
@@ -2775,7 +2786,7 @@
         type: MainBoardComponent,
         selectors: [["app-main-board"]],
         decls: 50,
-        vars: 34,
+        vars: 35,
         consts: [[1, "board-wrapper"], [1, "btn-block", "m-top-5", "mains-button"], [1, "small-title"], [1, "btn-wrap"], [1, "btn", "mains", 3, "ngClass", "click"], [1, "main"], ["class", "icon engine-icon", "src", "assets/green.png", "alt", "", 4, "ngIf"], ["class", "icon start-icon", "src", "assets/green.png", "alt", "", 4, "ngIf"], ["class", "icon l1-icon", "src", "assets/green.png", "alt", "", 4, "ngIf"], ["class", "icon l2-icon", "src", "assets/green.png", "alt", "", 4, "ngIf"], ["class", "icon l3-icon", "src", "assets/green.png", "alt", "", 4, "ngIf"], ["class", "icon mains-icon", "src", "assets/yellow.png", "alt", "", 4, "ngIf"], ["class", "icon gen-icon", "src", "assets/yellow.png", "alt", "", 4, "ngIf"], [1, "left-panel"], [1, "btn-block", "center"], [1, "btn", "reset", 3, "ngClass", "click"], [1, "m-top-10"], [1, "btn-block", "vertical", "m-top-5", "start-stop"], [1, "btn", "start", 3, "ngClass", "click"], [1, "btn", "stop", 3, "ngClass", "click"], [1, "btn-block", "gen-button"], [1, "btn", "gen", 3, "ngClass", "click"], [1, "right-panel"], [1, "btn-block", "vertical"], [1, "btn", "test", 3, "ngClass", "click"], [1, "btn", "aut", 3, "ngClass", "click"], [1, "btn", "man", 3, "ngClass", "click"], [1, "btn", "off", 3, "ngClass", "click"], ["src", "assets/green.png", "alt", "", 1, "icon", "engine-icon"], ["src", "assets/green.png", "alt", "", 1, "icon", "start-icon"], ["src", "assets/green.png", "alt", "", 1, "icon", "l1-icon"], ["src", "assets/green.png", "alt", "", 1, "icon", "l2-icon"], ["src", "assets/green.png", "alt", "", 1, "icon", "l3-icon"], ["src", "assets/yellow.png", "alt", "", 1, "icon", "mains-icon"], ["src", "assets/yellow.png", "alt", "", 1, "icon", "gen-icon"]],
         template: function MainBoardComponent_Template(rf, ctx) {
           if (rf & 1) {
@@ -3025,27 +3036,27 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](24, _c0, ctx.isActive.KG));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](24, _c1, ctx.isActive.KG, !ctx.rActive));
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](26, _c0, ctx.isActive.KT));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](27, _c0, ctx.isActive.KT));
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](28, _c0, ctx.isActive.KA));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](29, _c0, ctx.isActive.KA));
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](30, _c0, ctx.isActive.KM));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](31, _c0, ctx.isActive.KM));
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](32, _c0, ctx.isActive.KO));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](33, _c0, ctx.isActive.KO));
           }
         },
         directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]],
-        styles: [".board-wrapper[_ngcontent-%COMP%] {\n  width: 556px;\n  border: 2px solid gray;\n  padding: 10px;\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  border: 1px solid gray;\n  padding: 1px;\n  background-color: #0A3E7F;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%] {\n  width: 74px;\n  height: 74px;\n  margin: 3px;\n  border: 3px solid black;\n  background-color: #E7E7E7;\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  width: 62px;\n  height: 62px;\n  border: 1px solid black;\n  border-radius: 8px;\n  margin: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.start[_ngcontent-%COMP%] {\n  background-color: #008604;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.stop[_ngcontent-%COMP%] {\n  background-color: #FA0305;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.mains[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.gen[_ngcontent-%COMP%] {\n  background-color: #FCFE81;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.reset[_ngcontent-%COMP%] {\n  background-color: #b7c975;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.test[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.man[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.off[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.aut[_ngcontent-%COMP%] {\n  background-color: #FA0305;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.reset[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block.center[_ngcontent-%COMP%] {\n  justify-content: center;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block.vertical[_ngcontent-%COMP%] {\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%] {\n  display: flex;\n  min-width: 340px;\n  width: 340px;\n  height: 500px;\n  background-image: url('main.png');\n  margin-left: 29px;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%] {\n  position: absolute;\n  display: flex;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .engine-icon[_ngcontent-%COMP%] {\n  right: 41px;\n  top: 30px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .mains-icon[_ngcontent-%COMP%] {\n  left: 53px;\n  bottom: 90px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .gen-icon[_ngcontent-%COMP%] {\n  right: -1px;\n  bottom: 90px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .start-icon[_ngcontent-%COMP%] {\n  right: -1px;\n  top: 181px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l1-icon[_ngcontent-%COMP%] {\n  left: 6px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l2-icon[_ngcontent-%COMP%] {\n  left: 52px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l3-icon[_ngcontent-%COMP%] {\n  left: 98px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .start-stop[_ngcontent-%COMP%] {\n  margin-top: 30px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .mains-button[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 10px;\n  z-index: 10;\n}\n.board-wrapper[_ngcontent-%COMP%]   .gen-button[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 10px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .left-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .right-panel[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 0 10px;\n  flex-direction: column;\n  justify-content: center;\n}\n.small-title[_ngcontent-%COMP%] {\n  position: absolute;\n  background: white;\n  top: -10px;\n  font-size: 13px;\n  padding: 1px;\n}\n.wrap-icon-r[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n  padding-right: 20px;\n}\n.wrap-icon-r[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  margin-left: 5px;\n}"]
+        styles: [".board-wrapper[_ngcontent-%COMP%] {\n  width: 556px;\n  border: 2px solid gray;\n  padding: 10px;\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  border: 1px solid gray;\n  padding: 1px;\n  background-color: #0A3E7F;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%] {\n  width: 74px;\n  height: 74px;\n  margin: 3px;\n  border: 3px solid black;\n  background-color: #E7E7E7;\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  width: 62px;\n  height: 62px;\n  border: 1px solid black;\n  border-radius: 8px;\n  margin: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.start[_ngcontent-%COMP%] {\n  background-color: #008604;\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.stop[_ngcontent-%COMP%] {\n  background-color: #FA0305;\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.mains[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.gen[_ngcontent-%COMP%] {\n  background-color: #FCFE81;\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.reset[_ngcontent-%COMP%] {\n  background-color: #b7c975;\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.test[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.man[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.off[_ngcontent-%COMP%], .board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.active.aut[_ngcontent-%COMP%] {\n  background-color: #FA0305;\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.inactive[_ngcontent-%COMP%] {\n  cursor: not-allowed;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block[_ngcontent-%COMP%]   .btn-wrap[_ngcontent-%COMP%]   .btn.reset[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block.center[_ngcontent-%COMP%] {\n  justify-content: center;\n}\n.board-wrapper[_ngcontent-%COMP%]   .btn-block.vertical[_ngcontent-%COMP%] {\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%] {\n  display: flex;\n  min-width: 340px;\n  width: 340px;\n  height: 500px;\n  background-image: url('main.png');\n  margin-left: 29px;\n  position: relative;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%] {\n  position: absolute;\n  display: flex;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .engine-icon[_ngcontent-%COMP%] {\n  right: 41px;\n  top: 30px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .mains-icon[_ngcontent-%COMP%] {\n  left: 53px;\n  bottom: 90px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .gen-icon[_ngcontent-%COMP%] {\n  right: -1px;\n  bottom: 90px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .start-icon[_ngcontent-%COMP%] {\n  right: -1px;\n  top: 181px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l1-icon[_ngcontent-%COMP%] {\n  left: 6px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l2-icon[_ngcontent-%COMP%] {\n  left: 52px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .main[_ngcontent-%COMP%]   .l3-icon[_ngcontent-%COMP%] {\n  left: 98px;\n  top: 207px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .start-stop[_ngcontent-%COMP%] {\n  margin-top: 30px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .mains-button[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 10px;\n  z-index: 10;\n}\n.board-wrapper[_ngcontent-%COMP%]   .gen-button[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 10px;\n}\n.board-wrapper[_ngcontent-%COMP%]   .left-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.board-wrapper[_ngcontent-%COMP%]   .right-panel[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 0 10px;\n  flex-direction: column;\n  justify-content: center;\n}\n.small-title[_ngcontent-%COMP%] {\n  position: absolute;\n  background: white;\n  top: -10px;\n  font-size: 13px;\n  padding: 1px;\n}\n.wrap-icon-r[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n  padding-right: 20px;\n}\n.wrap-icon-r[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  margin-left: 5px;\n}"]
       });
       /*@__PURE__*/
 
