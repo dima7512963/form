@@ -288,7 +288,8 @@ class HttpService {
             //     {
             //       values: {
             //         MV: '2',
-            //         ST: 'AR.MG'
+            //         ST: 'AR.MG',
+            //         IO: '......7.'
             //       }
             //     }
             //   ]
@@ -1370,7 +1371,9 @@ class MainBoardComponent {
         this.rActive = false;
         this.modelService.st$.subscribe(st => {
             Object.keys(this.isActive).forEach(element => {
-                this.isActive[element] = false;
+                if (element != 'KN' && element != 'KG') {
+                    this.isActive[element] = false;
+                }
             });
             if (st[0] === 'O') {
                 this.isActive.KO = true;
@@ -1387,12 +1390,12 @@ class MainBoardComponent {
             if (st[1] === 'R') {
                 this.rActive = true;
             }
-            if (st[3] === 'M') {
-                this.isActive.KN = true;
-            }
-            if (st[4] === 'G') {
-                this.isActive.KG = true;
-            }
+        });
+        this.modelService.io$.subscribe(io => {
+            this.isActive.KN = false;
+            this.isActive.KG = false;
+            this.isActive.KN = io[6] == '7';
+            this.isActive.KG = io[7] == '8';
         });
         this.modelService.mv$.subscribe((mv) => {
             this.l1 = Number(mv[0]) > 0;

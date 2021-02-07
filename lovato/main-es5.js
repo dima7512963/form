@@ -495,7 +495,8 @@
               //     {
               //       values: {
               //         MV: '2',
-              //         ST: 'AR.MG'
+              //         ST: 'AR.MG',
+              //         IO: '......7.'
               //       }
               //     }
               //   ]
@@ -2576,7 +2577,9 @@
           this.rActive = false;
           this.modelService.st$.subscribe(function (st) {
             Object.keys(_this7.isActive).forEach(function (element) {
-              _this7.isActive[element] = false;
+              if (element != 'KN' && element != 'KG') {
+                _this7.isActive[element] = false;
+              }
             });
 
             if (st[0] === 'O') {
@@ -2598,14 +2601,12 @@
             if (st[1] === 'R') {
               _this7.rActive = true;
             }
-
-            if (st[3] === 'M') {
-              _this7.isActive.KN = true;
-            }
-
-            if (st[4] === 'G') {
-              _this7.isActive.KG = true;
-            }
+          });
+          this.modelService.io$.subscribe(function (io) {
+            _this7.isActive.KN = false;
+            _this7.isActive.KG = false;
+            _this7.isActive.KN = io[6] == '7';
+            _this7.isActive.KG = io[7] == '8';
           });
           this.modelService.mv$.subscribe(function (mv) {
             _this7.l1 = Number(mv[0]) > 0;
