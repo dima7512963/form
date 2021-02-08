@@ -391,7 +391,6 @@
           this.enableLog = false;
           this.reportUrl = '';
           this.user = '';
-          this.form = '';
           this.ObjectItemID = '';
           this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
           this.defIp = '10.228.75.77';
@@ -402,11 +401,11 @@
           this.type = "";
           this.unit = 0;
           this.backendUrl = 'http://localhost:9092';
-          this.reportUrl = 'http://127.0.0.1:9092';
+          this.reportUrl = 'https://ioms.kyivstar.ua/api/v1/object-items';
           this.httpClient.get('assets/config.json').subscribe(function (config) {
             _this2.backendUrl = config.backendUrl || 'http://localhost:9092';
             _this2.enableLog = config.enableLog;
-            _this2.reportUrl = config.reportUrl || 'http://127.0.0.1:9092';
+            _this2.reportUrl = config.reportUrl || 'https://ioms.kyivstar.ua/api/v1/object-items';
           });
           this.route.queryParams.subscribe(function (params) {
             try {
@@ -509,13 +508,10 @@
           key: "reportAction",
           value: function reportAction(action) {
             var reportBody = {
-              'user': this.user,
-              'button': action,
-              'form': this.form,
-              'ObjectItemID': this.ObjectItemID,
-              'ip': this.ip
+              'userName': this.user,
+              'operation': action
             };
-            this.httpClient.post(this.reportUrl, reportBody).subscribe();
+            this.httpClient.post("".concat(this.reportUrl, "/").concat(this.ObjectItemID, "/action"), reportBody).subscribe();
           }
         }]);
 
@@ -1425,7 +1421,6 @@
               _this5.geographicalPosition = params['geo'] || _this5.defGeo;
               _this5.user = params['user'] || _this5.defUser;
               _this5.httpService.user = _this5.user;
-              _this5.httpService.form = _this5.deviceName;
             } catch (e) {}
           });
         }

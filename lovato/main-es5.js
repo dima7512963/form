@@ -435,11 +435,11 @@
           this.port = 2006;
           this.type = '3';
           this.backendUrl = 'http://10.49.199.234:9092/read';
-          this.reportUrl = 'http://127.0.0.1:9092';
+          this.reportUrl = 'https://ioms.kyivstar.ua/api/v1/object-items';
           this.httpClient.get('assets/config.json').subscribe(function (config) {
             _this3.backendUrl = config.backendUrl;
             _this3.enableLog = config.enableLog;
-            _this3.reportUrl = config.reportUrl || 'http://127.0.0.1:9092';
+            _this3.reportUrl = config.reportUrl || 'https://ioms.kyivstar.ua/api/v1/object-items';
           });
           this.route.queryParams.subscribe(function (params) {
             try {
@@ -511,13 +511,10 @@
           key: "reportAction",
           value: function reportAction(action) {
             var reportBody = {
-              'user': this.user,
-              'button': action,
-              'form': this.form,
-              'ObjectItemID': this.ObjectItemID,
-              'ip': this.ip
+              'userName': this.user,
+              'operation': action
             };
-            this.httpClient.post(this.reportUrl, reportBody).subscribe();
+            this.httpClient.post("".concat(this.reportUrl, "/").concat(this.ObjectItemID, "/action"), reportBody).subscribe();
           }
         }]);
 

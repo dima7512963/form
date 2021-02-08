@@ -202,7 +202,6 @@ class HttpService {
         this.enableLog = false;
         this.reportUrl = '';
         this.user = '';
-        this.form = '';
         this.ObjectItemID = '';
         this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
         this.defIp = '10.228.75.77';
@@ -213,11 +212,11 @@ class HttpService {
         this.type = "";
         this.unit = 0;
         this.backendUrl = 'http://localhost:9092';
-        this.reportUrl = 'http://127.0.0.1:9092';
+        this.reportUrl = 'https://ioms.kyivstar.ua/api/v1/object-items';
         this.httpClient.get('assets/config.json').subscribe((config) => {
             this.backendUrl = config.backendUrl || 'http://localhost:9092';
             this.enableLog = config.enableLog;
-            this.reportUrl = config.reportUrl || 'http://127.0.0.1:9092';
+            this.reportUrl = config.reportUrl || 'https://ioms.kyivstar.ua/api/v1/object-items';
         });
         this.route.queryParams.subscribe(params => {
             try {
@@ -319,13 +318,10 @@ class HttpService {
     }
     reportAction(action) {
         const reportBody = {
-            'user': this.user,
-            'button': action,
-            'form': this.form,
-            'ObjectItemID': this.ObjectItemID,
-            'ip': this.ip
+            'userName': this.user,
+            'operation': action,
         };
-        this.httpClient.post(this.reportUrl, reportBody).subscribe();
+        this.httpClient.post(`${this.reportUrl}/${this.ObjectItemID}/action`, reportBody).subscribe();
     }
 }
 HttpService.ɵfac = function HttpService_Factory(t) { return new (t || HttpService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_model_model_service__WEBPACK_IMPORTED_MODULE_3__["ModelService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
@@ -785,7 +781,6 @@ class ConnectionParametersComponent {
                 this.geographicalPosition = params['geo'] || this.defGeo;
                 this.user = params['user'] || this.defUser;
                 this.httpService.user = this.user;
-                this.httpService.form = this.deviceName;
             }
             catch (e) { }
         });

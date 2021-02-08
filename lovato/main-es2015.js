@@ -224,11 +224,11 @@ class HttpService {
         this.port = 2006;
         this.type = '3';
         this.backendUrl = 'http://10.49.199.234:9092/read';
-        this.reportUrl = 'http://127.0.0.1:9092';
+        this.reportUrl = 'https://ioms.kyivstar.ua/api/v1/object-items';
         this.httpClient.get('assets/config.json').subscribe((config) => {
             this.backendUrl = config.backendUrl;
             this.enableLog = config.enableLog;
-            this.reportUrl = config.reportUrl || 'http://127.0.0.1:9092';
+            this.reportUrl = config.reportUrl || 'https://ioms.kyivstar.ua/api/v1/object-items';
         });
         this.route.queryParams.subscribe(params => {
             try {
@@ -300,13 +300,10 @@ class HttpService {
     }
     reportAction(action) {
         const reportBody = {
-            'user': this.user,
-            'button': action,
-            'form': this.form,
-            'ObjectItemID': this.ObjectItemID,
-            'ip': this.ip
+            'userName': this.user,
+            'operation': action,
         };
-        this.httpClient.post(this.reportUrl, reportBody).subscribe();
+        this.httpClient.post(`${this.reportUrl}/${this.ObjectItemID}/action`, reportBody).subscribe();
     }
 }
 HttpService.ɵfac = function HttpService_Factory(t) { return new (t || HttpService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_model_model_service__WEBPACK_IMPORTED_MODULE_3__["ModelService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
