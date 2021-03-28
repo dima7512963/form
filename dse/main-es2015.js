@@ -306,6 +306,7 @@ class HttpService {
             //           '0417': '9999',
             //           '0419': '1010',
             //           '041B': '1111',
+            //           '0707': '36227',
             //           '0304': '5',
             //         }
             //       }
@@ -371,6 +372,7 @@ class MotorBoardComponent {
         this.oilTempText = '0 0 0 C';
         this.fuelLvl = 0;
         this.controlPanel = '';
+        this.hoursRun = '';
     }
     ngOnInit() {
         this.modelService.oilP$.subscribe((status) => this.oilP = +(+status / 1000).toFixed(2));
@@ -386,6 +388,7 @@ class MotorBoardComponent {
         });
         this.modelService.fuelLvl$.subscribe((status) => this.fuelLvl = +(+status * 0.0078125 - 251).toFixed(1));
         this.modelService.controlPanel$.subscribe((status) => this.controlPanel = this.checkStatus(+status));
+        this.modelService.hoursRun$.subscribe((hours) => this.hoursRun = ((+hours) / 1286).toFixed(2));
     }
     checkStatus(status) {
         switch (status) {
@@ -411,7 +414,7 @@ class MotorBoardComponent {
     }
 }
 MotorBoardComponent.ɵfac = function MotorBoardComponent_Factory(t) { return new (t || MotorBoardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_shared_services_model_model_service__WEBPACK_IMPORTED_MODULE_2__["ModelService"])); };
-MotorBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: MotorBoardComponent, selectors: [["app-motor-board"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([_angular_common__WEBPACK_IMPORTED_MODULE_0__["DecimalPipe"]])], decls: 28, vars: 16, consts: [[1, "board"], [1, "flex-row", "m-top-7"], [1, "flex-col", "left"], [1, "wrap", "p5", 2, "padding-top", "0", "padding-bottom", "8px"], [3, "value", "max", "label"], [1, "flex-col", "right"], [1, "flex-row"], [1, "term", "wrap", "m-left-10"], [1, "title"], ["type", "text", 1, "parameter-value", "digital-input", 3, "value", "valueChange"], [3, "value"], [1, "fuel", "wrap", "m-left-10"], [3, "value", "max"], [1, "fex-row", "m-top-10", "m-left-10"], [1, "e-status", "wrap"]], template: function MotorBoardComponent_Template(rf, ctx) { if (rf & 1) {
+MotorBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: MotorBoardComponent, selectors: [["app-motor-board"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([_angular_common__WEBPACK_IMPORTED_MODULE_0__["DecimalPipe"]])], decls: 33, vars: 17, consts: [[1, "board"], [1, "flex-row", "m-top-7"], [1, "flex-col", "left", "speeds-colmn"], [1, "wrap", "p5", 2, "padding-top", "0", "padding-bottom", "8px"], [3, "value", "max", "label"], [1, "flex-col", "right"], [1, "flex-row"], [1, "term", "wrap", "m-left-10"], [1, "title"], ["type", "text", 1, "parameter-value", "digital-input", 3, "value", "valueChange"], [3, "value"], [1, "fuel", "wrap", "m-left-10"], [3, "value", "max"], [1, "fex-row", "m-top-10", "m-left-10"], [1, "e-status", "wrap"]], template: function MotorBoardComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 2);
@@ -458,6 +461,16 @@ MotorBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefi
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](28, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](29, "div", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](30, "div", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](31, "Hours run:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](32, "input", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("valueChange", function MotorBoardComponent_Template_input_valueChange_32_listener($event) { return ctx.hoursRun = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -480,7 +493,9 @@ MotorBoardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefi
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", ctx.fuelLvl)("max", 600);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", ctx.controlPanel);
-    } }, directives: [_shared_components_speed_speed_component__WEBPACK_IMPORTED_MODULE_3__["SpeedComponent"], _shared_components_termometer_termometer_component__WEBPACK_IMPORTED_MODULE_4__["TermometerComponent"], _shared_components_fuel_fuel_component__WEBPACK_IMPORTED_MODULE_5__["FuelComponent"]], styles: [".p5[_ngcontent-%COMP%] {\n  padding-left: 5px;\n  padding-right: 5px;\n  padding-bottom: 17px;\n}\n\n.h125[_ngcontent-%COMP%] {\n  height: 127px;\n}\n\n.board[_ngcontent-%COMP%] {\n  width: 616px;\n  margin-top: 15px;\n  margin-left: 3px;\n}\n\n.board[_ngcontent-%COMP%]   .e-status[_ngcontent-%COMP%] {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n.board[_ngcontent-%COMP%]   .e-status[_ngcontent-%COMP%]   .parameter-value[_ngcontent-%COMP%] {\n  font-size: 14px;\n  width: 95%;\n}\n\n.board[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n\n.board[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}\n\n.board[_ngcontent-%COMP%]   .term[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 120px;\n  height: 278px;\n}\n\n.board[_ngcontent-%COMP%]   .fuel[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 278px;\n  margin-left: 10px;\n}\n\n.board[_ngcontent-%COMP%]   .bat-v[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.m-left-10[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", ctx.hoursRun);
+    } }, directives: [_shared_components_speed_speed_component__WEBPACK_IMPORTED_MODULE_3__["SpeedComponent"], _shared_components_termometer_termometer_component__WEBPACK_IMPORTED_MODULE_4__["TermometerComponent"], _shared_components_fuel_fuel_component__WEBPACK_IMPORTED_MODULE_5__["FuelComponent"]], styles: [".p5[_ngcontent-%COMP%] {\n  padding-left: 5px;\n  padding-right: 5px;\n  padding-bottom: 17px;\n}\n\n.h125[_ngcontent-%COMP%] {\n  height: 127px;\n}\n\n.board[_ngcontent-%COMP%] {\n  width: 616px;\n  margin-top: 15px;\n  margin-left: 3px;\n}\n\n.board[_ngcontent-%COMP%]   .speeds-colmn[_ngcontent-%COMP%] {\n  height: 100%;\n}\n\n.board[_ngcontent-%COMP%]   .e-status[_ngcontent-%COMP%] {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n.board[_ngcontent-%COMP%]   .e-status[_ngcontent-%COMP%]   .parameter-value[_ngcontent-%COMP%] {\n  font-size: 14px;\n  width: 95%;\n}\n\n.board[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n\n.board[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}\n\n.board[_ngcontent-%COMP%]   .term[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 120px;\n  height: 278px;\n}\n\n.board[_ngcontent-%COMP%]   .fuel[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 278px;\n  margin-left: 10px;\n}\n\n.board[_ngcontent-%COMP%]   .bat-v[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.m-left-10[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MotorBoardComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
         args: [{
@@ -981,6 +996,7 @@ class ModelService {
         this.coolantTemp$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
         this.oilTemp$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
         this.fuelLvl$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
+        this.hoursRun$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
         this.oilP$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
         this.batV$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
         this.engSpeed$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
@@ -995,6 +1011,7 @@ class ModelService {
         this.oilP$.next(this.checkValue(res['0400']));
         this.batV$.next(this.checkValue(res['0405']));
         this.engSpeed$.next(this.checkValue(res['0406']));
+        this.hoursRun$.next(this.checkValue(res['0707']));
         this.speeds$.next({
             "s1": this.checkValue(res['0409']),
             "s2": this.checkValue(res['040B']),
