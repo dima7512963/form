@@ -265,6 +265,7 @@ class HttpService {
             '0417',
             '0419',
             '041B',
+            '0707',
             '0304',
         ];
         const allObj = {
