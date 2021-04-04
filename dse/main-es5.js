@@ -393,6 +393,7 @@
           this.user = '';
           this.ObjectItemID = '';
           this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+          this.hoursRequestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
           this.defIp = '10.228.75.77';
           this.defPort = 2007;
           this.ip = '';
@@ -450,6 +451,7 @@
 
             this.requestInProgress.next(true);
             this.reportAction('REQUEST');
+            this.getRunHours();
             var allkeys = ['0401', '0402', '0403', '0400', '0405', '0406', '0409', '040B', '040D', '040F', '0411', '0413', '0407', '0415', '0417', '0419', '041B', '0707', '0304'];
             var allObj = {
               baudrate: this.baudrate,
@@ -513,6 +515,37 @@
               'operation': action
             };
             this.httpClient.post("".concat(this.reportUrl, "/").concat(this.ObjectItemID, "/action"), reportBody).subscribe();
+          }
+        }, {
+          key: "getRunHours",
+          value: function getRunHours() {
+            var _this4 = this;
+
+            this.hoursRequestInProgress.next(true);
+            var requestBody = {
+              send: '0a030706000ca5c1'
+            };
+            this.httpClient.post("".concat(this.backendUrl, "/socket"), this.getPostBody(requestBody)).subscribe(function (response) {
+              if (_this4.enableLog) {
+                console.log('runHours response', response);
+              }
+
+              _this4.modelService.parseRunHoursResponse(response);
+
+              _this4.hoursRequestInProgress.next(false);
+            }, function (error) {
+              if (_this4.enableLog) {
+                console.log('error runHours Request', error);
+              } // if (true) {
+              //   const x = {
+              //     recived: '0a031800018d8300'
+              //   };
+              //   this.modelService.parseRunHoursResponse(x);
+              // }
+
+
+              _this4.hoursRequestInProgress.next(false);
+            });
           }
         }]);
 
@@ -626,33 +659,33 @@
         _createClass(MotorBoardComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.modelService.oilP$.subscribe(function (status) {
-              return _this4.oilP = +(+status / 1000).toFixed(2);
+              return _this5.oilP = +(+status / 1000).toFixed(2);
             });
             this.modelService.batV$.subscribe(function (status) {
-              return _this4.engBatV = +status / 10;
+              return _this5.engBatV = +status / 10;
             });
             this.modelService.engSpeed$.subscribe(function (status) {
-              return _this4.engSpeed = +status;
+              return _this5.engSpeed = +status;
             });
             this.modelService.coolantTemp$.subscribe(function (status) {
-              _this4.coolantTemp = +(+status / 1000).toFixed(0);
-              _this4.coolantTempText = [].concat(_toConsumableArray(_this4.coolantTemp.toString()), ['C']).join(' ');
+              _this5.coolantTemp = +(+status / 1000).toFixed(0);
+              _this5.coolantTempText = [].concat(_toConsumableArray(_this5.coolantTemp.toString()), ['C']).join(' ');
             });
             this.modelService.oilTemp$.subscribe(function (status) {
-              _this4.oilTemp = +(+status / 1000).toFixed(0);
-              _this4.oilTempText = [].concat(_toConsumableArray(_this4.oilTemp.toString()), ['C']).join(' ');
+              _this5.oilTemp = +(+status / 1000).toFixed(0);
+              _this5.oilTempText = [].concat(_toConsumableArray(_this5.oilTemp.toString()), ['C']).join(' ');
             });
             this.modelService.fuelLvl$.subscribe(function (status) {
-              return _this4.fuelLvl = +(+status * 0.0078125 - 251).toFixed(1);
+              return _this5.fuelLvl = +(+status * 0.0078125 - 251).toFixed(1);
             });
             this.modelService.controlPanel$.subscribe(function (status) {
-              return _this4.controlPanel = _this4.checkStatus(+status);
+              return _this5.controlPanel = _this5.checkStatus(+status);
             });
             this.modelService.hoursRun$.subscribe(function (hours) {
-              return _this4.hoursRun = (+hours / 1286).toFixed(2);
+              return _this5.hoursRun = hours;
             });
           }
         }, {
@@ -985,8 +1018,8 @@
       AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
         type: AppComponent,
         selectors: [["app-root"]],
-        decls: 11,
-        vars: 3,
+        decls: 12,
+        vars: 5,
         consts: [[4, "ngIf"], [1, "flex-col"], [1, "flex-row"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
@@ -994,27 +1027,29 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 1);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 2);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "app-connection-parameters");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "app-main-board");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "app-connection-parameters");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 1);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "app-motor-board");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](7, "app-main-board");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "app-engine-status");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "app-motor-board");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "app-engine-status");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -1024,7 +1059,7 @@
           }
 
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, ctx.httpService.requestInProgress));
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, ctx.httpService.requestInProgress) || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 3, ctx.httpService.hoursRequestInProgress));
           }
         },
         directives: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], _connection_parameters_connection_parameters_component__WEBPACK_IMPORTED_MODULE_3__["ConnectionParametersComponent"], _main_board_main_board_component__WEBPACK_IMPORTED_MODULE_4__["MainBoardComponent"], _motor_board_motor_board_component__WEBPACK_IMPORTED_MODULE_5__["MotorBoardComponent"], _engine_status_engine_status_component__WEBPACK_IMPORTED_MODULE_6__["EngineStatusComponent"], _shared_components_loading_loading_component__WEBPACK_IMPORTED_MODULE_7__["LoadingComponent"]],
@@ -1429,7 +1464,7 @@
 
       var ConnectionParametersComponent = /*#__PURE__*/function () {
         function ConnectionParametersComponent(httpService, route) {
-          var _this5 = this;
+          var _this6 = this;
 
           _classCallCheck(this, ConnectionParametersComponent);
 
@@ -1447,11 +1482,11 @@
           this.geographicalPosition = this.defGeo;
           this.route.queryParams.subscribe(function (params) {
             try {
-              _this5.baseStationName = params['tit'] || _this5.defStation;
-              _this5.deviceName = params['name'] || _this5.defName;
-              _this5.geographicalPosition = params['geo'] || _this5.defGeo;
-              _this5.user = params['user'] || _this5.defUser;
-              _this5.httpService.user = _this5.user;
+              _this6.baseStationName = params['tit'] || _this6.defStation;
+              _this6.deviceName = params['name'] || _this6.defName;
+              _this6.geographicalPosition = params['geo'] || _this6.defGeo;
+              _this6.user = params['user'] || _this6.defUser;
+              _this6.httpService.user = _this6.user;
             } catch (e) {}
           });
         }
@@ -1896,8 +1931,8 @@
             this.fuelLvl$.next(this.checkValue(res['0403']));
             this.oilP$.next(this.checkValue(res['0400']));
             this.batV$.next(this.checkValue(res['0405']));
-            this.engSpeed$.next(this.checkValue(res['0406']));
-            this.hoursRun$.next(this.checkValue(res['0707']));
+            this.engSpeed$.next(this.checkValue(res['0406'])); // this.hoursRun$.next(this.checkValue(res['0707']));
+
             this.speeds$.next({
               "s1": this.checkValue(res['0409']),
               "s2": this.checkValue(res['040B']),
@@ -1911,6 +1946,21 @@
               "s10": this.checkValue(res['0419']),
               "s11": this.checkValue(res['041B'])
             });
+          }
+        }, {
+          key: "parseRunHoursResponse",
+          value: function parseRunHoursResponse(responce) {
+            var hexRes = (responce === null || responce === void 0 ? void 0 : responce.recived) || 0;
+            var runHours = '0';
+
+            if (hexRes.length === 16) {
+              var dec = parseInt(hexRes.substring(6, 14), 16);
+              var h = (dec / 3600).toFixed(0);
+              var m = (dec % 3600 / 60).toFixed(0);
+              runHours = "".concat(h, ",").concat(m);
+            }
+
+            this.hoursRun$.next(runHours);
           }
         }, {
           key: "checkValue",
@@ -2163,7 +2213,7 @@
 
       var MainBoardComponent = /*#__PURE__*/function () {
         function MainBoardComponent(httpService, modelService) {
-          var _this6 = this;
+          var _this7 = this;
 
           _classCallCheck(this, MainBoardComponent);
 
@@ -2188,26 +2238,26 @@
             stop: false
           };
           this.modelService.speeds$.subscribe(function (status) {
-            _this6.lamp.l1 = +status['s8'] > 0;
-            _this6.lamp.l2 = +status['s9'] > 0;
-            _this6.lamp.l3 = +status['s10'] > 0;
+            _this7.lamp.l1 = +status['s8'] > 0;
+            _this7.lamp.l2 = +status['s9'] > 0;
+            _this7.lamp.l3 = +status['s10'] > 0;
           });
           this.modelService.controlPanel$.subscribe(function (status) {
-            _this6.isActive.auto = false;
-            _this6.isActive.manMode = false;
-            _this6["switch"].start = false;
-            _this6["switch"].stop = false;
+            _this7.isActive.auto = false;
+            _this7.isActive.manMode = false;
+            _this7["switch"].start = false;
+            _this7["switch"].stop = false;
 
             if (status == '0') {
-              _this6.trigerSwitch('stop');
+              _this7.trigerSwitch('stop');
             }
 
             if (status == '1') {
-              _this6.isActive.auto = true;
+              _this7.isActive.auto = true;
             }
 
             if (status == '2') {
-              _this6.isActive.manMode = true;
+              _this7.isActive.manMode = true;
             } // if (status == '') {
             //   this.trigerSwitch('start');
             // }
@@ -2248,10 +2298,10 @@
         }, {
           key: "setButtonState",
           value: function setButtonState(trueKey) {
-            var _this7 = this;
+            var _this8 = this;
 
             Object.keys(this.isActive).forEach(function (element) {
-              _this7.isActive[element] = false;
+              _this8.isActive[element] = false;
             });
           }
         }, {
@@ -2285,26 +2335,26 @@
         }, {
           key: "sendAction",
           value: function sendAction(act, button, callback) {
-            var _this8 = this;
+            var _this9 = this;
 
             this.httpService.sendButtonAction(act, button).subscribe(function (data) {
               if (callback) {
                 callback();
               }
 
-              if (_this8.httpService.enableLog) {
+              if (_this9.httpService.enableLog) {
                 console.log('data', data);
               }
 
               setTimeout(function () {
-                _this8.httpService.getAllData();
+                _this9.httpService.getAllData();
               }, 3000);
             }, function (error) {
               // if (callback) {
               //   callback();
               // }
               setTimeout(function () {
-                _this8.httpService.getAllData();
+                _this9.httpService.getAllData();
               }, 3000);
             });
           }

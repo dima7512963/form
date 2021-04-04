@@ -204,6 +204,7 @@ class HttpService {
         this.user = '';
         this.ObjectItemID = '';
         this.requestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.hoursRequestInProgress = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
         this.defIp = '10.228.75.77';
         this.defPort = 2007;
         this.ip = '';
@@ -247,6 +248,7 @@ class HttpService {
     getAllData() {
         this.requestInProgress.next(true);
         this.reportAction('REQUEST');
+        this.getRunHours();
         const allkeys = [
             '0401',
             '0402',
@@ -325,6 +327,30 @@ class HttpService {
         };
         this.httpClient.post(`${this.reportUrl}/${this.ObjectItemID}/action`, reportBody).subscribe();
     }
+    getRunHours() {
+        this.hoursRequestInProgress.next(true);
+        const requestBody = {
+            send: '0a030706000ca5c1'
+        };
+        this.httpClient.post(`${this.backendUrl}/socket`, this.getPostBody(requestBody)).subscribe((response) => {
+            if (this.enableLog) {
+                console.log('runHours response', response);
+            }
+            this.modelService.parseRunHoursResponse(response);
+            this.hoursRequestInProgress.next(false);
+        }, (error) => {
+            if (this.enableLog) {
+                console.log('error runHours Request', error);
+            }
+            // if (true) {
+            //   const x = {
+            //     recived: '0a031800018d8300'
+            //   };
+            //   this.modelService.parseRunHoursResponse(x);
+            // }
+            this.hoursRequestInProgress.next(false);
+        });
+    }
 }
 HttpService.ɵfac = function HttpService_Factory(t) { return new (t || HttpService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_model_model_service__WEBPACK_IMPORTED_MODULE_3__["ModelService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
 HttpService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: HttpService, factory: HttpService.ɵfac, providedIn: 'root' });
@@ -389,7 +415,7 @@ class MotorBoardComponent {
         });
         this.modelService.fuelLvl$.subscribe((status) => this.fuelLvl = +(+status * 0.0078125 - 251).toFixed(1));
         this.modelService.controlPanel$.subscribe((status) => this.controlPanel = this.checkStatus(+status));
-        this.modelService.hoursRun$.subscribe((hours) => this.hoursRun = ((+hours) / 1286).toFixed(2));
+        this.modelService.hoursRun$.subscribe((hours) => this.hoursRun = hours);
     }
     checkStatus(status) {
         switch (status) {
@@ -546,25 +572,26 @@ class AppComponent {
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_shared_services_http_http_service__WEBPACK_IMPORTED_MODULE_1__["HttpService"])); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 11, vars: 3, consts: [[4, "ngIf"], [1, "flex-col"], [1, "flex-row"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 12, vars: 5, consts: [[4, "ngIf"], [1, "flex-col"], [1, "flex-row"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, AppComponent_app_loading_0_Template, 1, 0, "app-loading", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "app-connection-parameters");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "app-main-board");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "app-connection-parameters");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](7, "app-main-board");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "app-motor-board");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "app-motor-board");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "app-engine-status");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "app-engine-status");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, ctx.httpService.requestInProgress));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, ctx.httpService.requestInProgress) || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 3, ctx.httpService.hoursRequestInProgress));
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], _connection_parameters_connection_parameters_component__WEBPACK_IMPORTED_MODULE_3__["ConnectionParametersComponent"], _main_board_main_board_component__WEBPACK_IMPORTED_MODULE_4__["MainBoardComponent"], _motor_board_motor_board_component__WEBPACK_IMPORTED_MODULE_5__["MotorBoardComponent"], _engine_status_engine_status_component__WEBPACK_IMPORTED_MODULE_6__["EngineStatusComponent"], _shared_components_loading_loading_component__WEBPACK_IMPORTED_MODULE_7__["LoadingComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["AsyncPipe"]], styles: [""] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -1012,7 +1039,7 @@ class ModelService {
         this.oilP$.next(this.checkValue(res['0400']));
         this.batV$.next(this.checkValue(res['0405']));
         this.engSpeed$.next(this.checkValue(res['0406']));
-        this.hoursRun$.next(this.checkValue(res['0707']));
+        // this.hoursRun$.next(this.checkValue(res['0707']));
         this.speeds$.next({
             "s1": this.checkValue(res['0409']),
             "s2": this.checkValue(res['040B']),
@@ -1026,6 +1053,17 @@ class ModelService {
             "s10": this.checkValue(res['0419']),
             "s11": this.checkValue(res['041B']),
         });
+    }
+    parseRunHoursResponse(responce) {
+        const hexRes = (responce === null || responce === void 0 ? void 0 : responce.recived) || 0;
+        let runHours = '0';
+        if (hexRes.length === 16) {
+            const dec = parseInt(hexRes.substring(6, 14), 16);
+            const h = (dec / 3600).toFixed(0);
+            const m = ((dec % 3600) / 60).toFixed(0);
+            runHours = `${h},${m}`;
+        }
+        this.hoursRun$.next(runHours);
     }
     checkValue(val) {
         return val == '' || !+val ? 0 : val;
