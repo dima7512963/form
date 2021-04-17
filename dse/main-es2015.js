@@ -330,9 +330,9 @@ class HttpService {
     getRunHours() {
         this.hoursRequestInProgress.next(true);
         const requestBody = {
-            send: '0a030706000ca5c1'
+            send: '0A03070600022405'
         };
-        this.httpClient.post(`${this.backendUrl}/socket`, this.getPostBody(requestBody)).subscribe((response) => {
+        this.httpClient.post(`${this.backendUrl}/socketdse`, this.getPostBody(requestBody)).subscribe((response) => {
             if (this.enableLog) {
                 console.log('runHours response', response);
             }
@@ -344,7 +344,7 @@ class HttpService {
             }
             // if (true) {
             //   const x = {
-            //     recived: '0a031800018d8300'
+            //     recived: '0A03040005BAE0221A'
             //   };
             //   this.modelService.parseRunHoursResponse(x);
             // }
@@ -1057,7 +1057,7 @@ class ModelService {
     parseRunHoursResponse(responce) {
         const hexRes = (responce === null || responce === void 0 ? void 0 : responce.recived) || 0;
         let runHours = '0';
-        if (hexRes.length === 16) {
+        if (hexRes.length === 18) {
             const dec = parseInt(hexRes.substring(6, 14), 16);
             const h = (dec / 3600).toFixed(0);
             const m = ((dec % 3600) / 60).toFixed(0);

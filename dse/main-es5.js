@@ -523,9 +523,9 @@
 
             this.hoursRequestInProgress.next(true);
             var requestBody = {
-              send: '0a030706000ca5c1'
+              send: '0A03070600022405'
             };
-            this.httpClient.post("".concat(this.backendUrl, "/socket"), this.getPostBody(requestBody)).subscribe(function (response) {
+            this.httpClient.post("".concat(this.backendUrl, "/socketdse"), this.getPostBody(requestBody)).subscribe(function (response) {
               if (_this4.enableLog) {
                 console.log('runHours response', response);
               }
@@ -538,7 +538,7 @@
                 console.log('error runHours Request', error);
               } // if (true) {
               //   const x = {
-              //     recived: '0a031800018d8300'
+              //     recived: '0A03040005BAE0221A'
               //   };
               //   this.modelService.parseRunHoursResponse(x);
               // }
@@ -1953,7 +1953,7 @@
             var hexRes = (responce === null || responce === void 0 ? void 0 : responce.recived) || 0;
             var runHours = '0';
 
-            if (hexRes.length === 16) {
+            if (hexRes.length === 18) {
               var dec = parseInt(hexRes.substring(6, 14), 16);
               var h = (dec / 3600).toFixed(0);
               var m = (dec % 3600 / 60).toFixed(0);
